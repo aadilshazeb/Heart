@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>I Love You Heart Animation</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  #ui {
+    position: relative;
+    width: 500px;
+    height: 450px;
+    animation: beat 1.5s ease-in-out infinite;
+  }
+
+  .love_word {
+    position: absolute;
+    color: #ea80b0;
+    font-size: 1.2rem;
+    text-shadow: 0 0 10px #fff;
+    letter-spacing: 2px;
+    white-space: nowrap;
+    transform: translate(-50%, -50%);
+  }
+
+  @keyframes beat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+  }
+</style>
+</head>
+<body>
+  <div id="ui"></div>
+
+  <script>
+    const ui = document.getElementById('ui');
+    const total = 150; // number of text points
+    for (let i = 0; i < total; i++) {
+      const span = document.createElement('span');
+      span.classList.add('love_word');
+      span.textContent = 'I love you';
+      
+      // Heart curve math
+      const t = (Math.PI * 2 * i) / total;
+      const x = 16 * Math.pow(Math.sin(t), 3);
+      const y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
+      
+      // Scale and position
+      const scale = 20;
+      const centerX = 250;
+      const centerY = 220;
+      span.style.left = `${centerX + x * scale}px`;
+      span.style.top = `${centerY - y * scale}px`;
+      
+      ui.appendChild(span);
+    }
+  </script>
+</body>
+</html>
