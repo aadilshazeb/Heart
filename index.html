@@ -17,8 +17,8 @@
 
   #ui {
     position: relative;
-    width: 500px;
-    height: 450px;
+    width: 60vmin;   /* responsive width */
+    height: 55vmin;  /* responsive height */
     animation: beat 1.5s ease-in-out infinite;
   }
 
@@ -36,6 +36,14 @@
     0%, 100% { transform: scale(1); }
     50% { transform: scale(1.1); }
   }
+
+  /* Make text smaller on small screens */
+  @media (max-width: 600px) {
+    .love_word {
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+    }
+  }
 </style>
 </head>
 <body>
@@ -44,25 +52,33 @@
   <script>
     const ui = document.getElementById('ui');
     const total = 150; // number of text points
-    for (let i = 0; i < total; i++) {
-      const span = document.createElement('span');
-      span.classList.add('love_word');
-      span.textContent = 'I love you';
-      
-      // Heart curve math
-      const t = (Math.PI * 2 * i) / total;
-      const x = 16 * Math.pow(Math.sin(t), 3);
-      const y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
-      
-      // Scale and position
-      const scale = 20;
-      const centerX = 250;
-      const centerY = 220;
-      span.style.left = `${centerX + x * scale}px`;
-      span.style.top = `${centerY - y * scale}px`;
-      
-      ui.appendChild(span);
+
+    function createHeart() {
+      ui.innerHTML = ''; // Clear previous heart
+      const width = ui.offsetWidth;
+      const height = ui.offsetHeight;
+      const scale = width / 25; // scale heart based on container width
+      const centerX = width / 2;
+      const centerY = height / 2;
+
+      for (let i = 0; i < total; i++) {
+        const span = document.createElement('span');
+        span.classList.add('love_word');
+        span.textContent = 'I love you';
+
+        const t = (Math.PI * 2 * i) / total;
+        const x = 16 * Math.pow(Math.sin(t), 3);
+        const y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
+
+        span.style.left = `${centerX + x * scale}px`;
+        span.style.top = `${centerY - y * scale}px`;
+
+        ui.appendChild(span);
+      }
     }
+
+    createHeart();
+    window.addEventListener('resize', createHeart); // adjust on window resize
   </script>
 </body>
 </html>
