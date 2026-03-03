@@ -1,0 +1,39 @@
+body {
+    margin: 0;
+    height: 100vh;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  #ui {
+    position: relative;
+    width: 60vmin;   /* responsive width */
+    height: 55vmin;  /* responsive height */
+    animation: beat 1.5s ease-in-out infinite;
+  }
+
+  .love_word {
+    position: absolute;
+    color: #ea80b0;
+    font-size: 1.2rem;
+    text-shadow: 0 0 10px #fff;
+    letter-spacing: 2px;
+    white-space: nowrap;
+    transform: translate(-50%, -50%);
+  }
+
+  @keyframes beat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+  }
+
+  /* Make text smaller on small screens */
+  @media (max-width: 600px) {
+    .love_word {
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+    }
+  }
